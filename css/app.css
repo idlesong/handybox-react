@@ -1,0 +1,11 @@
+.text {
+  font-size: 2rem;
+  line-height: 1.5;
+  color: #FF0000cc;
+}
+
+.mobile_block {
+  margin: 100px;
+  float: left;
+  width: 440px;
+}
