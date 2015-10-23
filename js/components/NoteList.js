@@ -15,10 +15,13 @@ export default class NoteList extends Component {
     noteslist.reverse();
     return(
       <div className="list-group">
-        { noteslist.map((note) => {
+        { noteslist.map((note, index) => {
           return(
             <div>
-              <NoteItem {...note} />
+              <NoteItem {...note}
+                key = {index}
+                onClick={() => this.props.onNoteClick(index)}
+                />
             </div>
           )}
         )}
@@ -31,5 +34,6 @@ NoteList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     text: PropTypes.string
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  onNoteClick: PropTypes.func.isRequired
 };

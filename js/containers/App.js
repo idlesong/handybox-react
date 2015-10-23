@@ -8,15 +8,6 @@ import NoteApp from '../components/NoteApp.js';
 
 const store = configureStore();
 
-console.log('start test');
-// 打印初始状态
-console.log(store.getState());
-
-// 监听 state 更新时，打印日志
-let unsubscribe = store.subscribe(() =>
-  console.log(store.getState())
-);
-
 export default React.createClass({
   render() {
     return (

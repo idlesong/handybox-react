@@ -1,21 +1,33 @@
 import * as ActionTypes from '../constants/ActionTypes';
+import {combineReducers} from 'redux';
 
-let defaultState = {
-  title: 'Home',
-  notes: [{title:'note title', text: 'sample note'}]
-};
-
-export default function(state = defaultState, action) {
+export function visibilityFilter(state = 'SHOW_ALL', action) {
   switch (action.type) {
-    case ActionTypes.TITLE_CHANGED:
-      return {...state, title: action.text};
-    case ActionTypes.NOTE_ADD:
-      return Object.assign({}, state, {
-        notes: [...state.notes, {title: 'test', text: action.text
-        }]
-      });
-
+    case ActionTypes.SET_VISIBILITY_FILTER:
+      return action.filter;
     default:
       return state;
   }
 }
+
+export function notes(state = [], action) {
+  switch (action.type) {
+    case ActionTypes.NOTE_ADD:
+      return [ ...state, {
+          title: 'test',
+          text: action.text,
+          archived: false
+      }]
+    case ActionTypes.NOTE_ARCHIVE:
+      return [...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {archived:true}), 
+        ...state.slice(action.index+1)]
+    default:
+      return state;
+  }
+}
+
+export const rootReducer = combineReducers({
+  visibilityFilter,
+  notes
+});
