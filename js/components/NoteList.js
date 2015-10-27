@@ -12,15 +12,19 @@ export default class NoteList extends Component {
 
   render(){
     let noteslist = this.props.notes;
-    noteslist.reverse();
+    // let length = noteslist.length-1;
+    // noteslist.reverse();
     return(
       <div className="list-group">
         { noteslist.map((note, index) => {
+          // index = length - index;
           return(
             <div>
               <NoteItem {...note}
                 key = {index}
                 onClick={() => this.props.onNoteClick(index)}
+                onItemEditClick={() => this.props.onEditClick(index)}
+                onItemSaveClick={(text) => this.props.onSaveClick(index,text)}
                 />
             </div>
           )}
@@ -35,5 +39,7 @@ NoteList.propTypes = {
     title: PropTypes.string,
     text: PropTypes.string
   }).isRequired).isRequired,
-  onNoteClick: PropTypes.func.isRequired
+  onArchiveClick: PropTypes.func.isRequired,
+  onEditClick: PropTypes.func.isRequired,
+  onSaveClick: PropTypes.func.isRequired
 };

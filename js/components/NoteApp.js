@@ -8,7 +8,7 @@ import NoteSearch from './NoteSearch.js';
 import NavBar from './NavBar.js';
 import NoteList from './NoteList.js';
 import NoteFooter from './NoteFooter.js';
-import {addNote, editNote, archiveNote, VisibilityFilters, setVisibilityFilter} from '../actions/HomeActions.js';
+import {addNote, editNote, saveNote, archiveNote, VisibilityFilters, setVisibilityFilter} from '../actions/HomeActions.js';
 
 export default class NoteApp extends Component {
   render() {
@@ -23,9 +23,16 @@ export default class NoteApp extends Component {
 
         <NoteList
           notes = {this.props.visibleNotes}
-          onNoteClick={index =>
+          onArchiveClick={index =>
             dispatch(archiveNote(index))
-          }/>
+          }
+          onEditClick={index =>
+            dispatch(editNote(index))
+          }
+          onSaveClick={(index,text) =>
+            dispatch(saveNote(index, text))
+          }
+          />
         <NoteFooter
           filter = {visibilityFilter}
           onFilterChange={(nextFilter) =>{

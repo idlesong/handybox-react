@@ -16,11 +16,23 @@ export function notes(state = [], action) {
       return [ ...state, {
           title: 'test',
           text: action.text,
+          isEditing: false,
           archived: false
       }]
+    case ActionTypes.NOTE_SAVE:
+      return [...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {
+          text: action.text,
+          isEditing:false
+        }),
+        ...state.slice(action.index+1)]
+    case ActionTypes.NOTE_EDIT:
+      return [...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {isEditing:true}),
+        ...state.slice(action.index+1)]
     case ActionTypes.NOTE_ARCHIVE:
       return [...state.slice(0, action.index),
-        Object.assign({}, state[action.index], {archived:true}), 
+        Object.assign({}, state[action.index], {archived:true}),
         ...state.slice(action.index+1)]
     default:
       return state;

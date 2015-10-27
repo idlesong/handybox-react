@@ -1,5 +1,5 @@
 import {TITLE_CHANGED} from '../constants/ActionTypes';
-import {NOTE_ADD, NOTE_EDIT, NOTE_ARCHIVE, SET_VISIBILITY_FILTER} from '../constants/ActionTypes';
+import {NOTE_ADD, NOTE_EDIT, NOTE_SAVE, NOTE_ARCHIVE, SET_VISIBILITY_FILTER} from '../constants/ActionTypes';
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -22,11 +22,20 @@ export function addNote(text) {
   }
 }
 
-export function editNote(newText) {
+export function editNote(index) {
   console.log('Edit note');
   return {
     type: NOTE_EDIT,
-    newText
+    index
+  }
+}
+
+export function saveNote(index, text) {
+  console.log('save Note');
+  return {
+    type: NOTE_SAVE,
+    index,
+    text
   }
 }
 
